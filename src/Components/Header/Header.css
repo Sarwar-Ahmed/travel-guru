@@ -1,0 +1,8 @@
+.navbar-brand{
+    filter: brightness(600%);
+    width: 120px;
+    height: 50px;
+}
+.nav-link{
+    color: white;
+}
