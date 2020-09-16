@@ -1,3 +1,11 @@
+.container-fluid{
+    background-image: linear-gradient(rgba(0,0,0,0.7), rgba(0,0,0,0.7)), url("https://iili.io/2nYA67.png");
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-attachment: fixed;
+    background-position: center;
+    min-height: 100vh;
+}
 .navbar-brand{
     filter: brightness(600%);
     width: 120px;

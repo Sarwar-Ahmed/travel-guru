@@ -6,7 +6,7 @@ const Header = (props) => {
     return (
         <nav className="navbar navbar-expand-lg navbar-dark">
             <img src="https://iili.io/2nXeCg.png" alt="" className="navbar-brand" />
-            <button onClick={() => props.handleToggler} className="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarTogglerDemo02" aria-controls="navbarTogglerDemo02" aria-expanded="false" aria-label="Toggle navigation">
+            <button onClick={() => props.handleNavCollapsed()} className="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarTogglerDemo02" aria-controls="navbarTogglerDemo02" aria-expanded="false" aria-label="Toggle navigation">
                 <span className="navbar-toggler-icon"></span>
             </button>
 
@@ -27,7 +27,9 @@ const Header = (props) => {
                     <li className="nav-item">
                         <Link className="nav-link" to="#">Contact</Link>
                     </li>
+                    <button className="loginBtn" >Login</button>
                 </ul>
+
             </div>
         </nav>
     );

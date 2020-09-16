@@ -3,6 +3,14 @@
     width: 120px;
     height: 50px;
 }
+.nav-item{
+    padding: 10px 20px;
+}
 .nav-link{
     color: white;
+}
+.loginBtn{
+    width: 120px;
+    border-radius: 10px;
+    background-color: #F9A51A;
 }
