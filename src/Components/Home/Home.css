@@ -17,3 +17,28 @@
     border-radius: 10px;
     background-color: #F9A51A;
 }
+.card-deck .customCard{
+    color: white;
+    flex: 1 0;
+    margin-right: 15px;
+    margin-left: 15px;
+    margin-top: 20px;
+    margin-bottom: 20px;
+}
+.customCard{
+    display: flex;
+    flex-direction: column;
+    border: 2px solid #F9A51A;
+    border-radius: 20px;
+}
+.customCard:hover{
+    box-shadow: 10px 10px 10px lightslategray;
+}
+.card-img-top{
+    height: 250px;
+}
+.bookingButton{
+    width: 120px;
+    border-radius: 10px;
+    background-color: #F9A51A;
+}
