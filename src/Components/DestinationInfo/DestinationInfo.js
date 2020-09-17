@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import fakeData from '../../fakeData/fakeData';
 import Header from '../Header/Header';
 
 
@@ -11,8 +12,15 @@ const DestinationInfo = () => {
         <div className="container-fluid">
             <div className="container">
                 <Header handleNavCollapsed={handleNavCollapsed} navCollapsed={navCollapsed}/>
-                <div>
-                    <h1 className="text-white">this is DestinationInfo</h1>
+                <div className="row text-white">
+                    <div className="col-md-6">
+                        {
+                            fakeData.find()
+                        }
+                    </div>
+                    <div className="col-md-6">
+                        <h1>Tour Date</h1>
+                    </div>
                 </div>
 
             </div>

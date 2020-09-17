@@ -13,7 +13,6 @@ const Home = () => {
     }
 
     const handleDestinationInfo = (spotName, details) =>{
-        setDestinationInfo(true);
         console.log(spotName);
     }
     return (
@@ -21,11 +20,7 @@ const Home = () => {
             <div className="container">
                 <Header handleNavCollapsed={handleNavCollapsed} navCollapsed={navCollapsed}/>
                 <div>
-                    {
-                        destinationInfo
-                        ?<DestinationInfo />
-                        :<SpotSlider handleDestinationInfo={handleDestinationInfo}/>
-                    }
+                    <SpotSlider handleDestinationInfo={handleDestinationInfo}/>
                 </div>
 
             </div>

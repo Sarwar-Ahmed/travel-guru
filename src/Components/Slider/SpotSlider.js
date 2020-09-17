@@ -8,8 +8,8 @@ import { useHistory } from 'react-router-dom';
 
 const SpotSlider = (props) => {
     const history = useHistory();
-    const handleDestinationInfo = () =>{
-        history.push('/destinationInfo')
+    const handleDestinationInfo = (id) =>{
+        history.push(`/destinationInfo/${id}`);
     }
     return (
         <div className="card-deck">
@@ -23,7 +23,7 @@ const SpotSlider = (props) => {
                             <p className="card-text">{spot.highlight} </p>
                         </div>
                         <div className="card-footer">
-                            <button className="bookingButton" onClick={() => handleDestinationInfo()}>Booking</button>
+                            <button className="bookingButton" onClick={() => handleDestinationInfo(spot.id)}>Booking</button>
                         </div>
                     </div>
                 })
