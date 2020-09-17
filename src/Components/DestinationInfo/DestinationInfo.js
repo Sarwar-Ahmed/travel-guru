@@ -1,24 +1,18 @@
 import React, { useState } from 'react';
 import { useHistory, useParams } from 'react-router-dom';
 import fakeData from '../../fakeData/fakeData';
-import Header from '../Header/Header';
 
 
 const DestinationInfo = () => {
-    const [navCollapsed, setNavCollapsed] = useState(true);
     const {id} = useParams();
     const history = useHistory();
 
-    const handleNavCollapsed = () =>{
-        setNavCollapsed(!navCollapsed);
-    }
     const handleBooking = () => {
-        history.push(`/login`);
+        history.push(`/accommodation`);
     }
     return (
         <div className="container-fluid">
             <div className="container">
-                <Header handleNavCollapsed={handleNavCollapsed} navCollapsed={navCollapsed}/>
                 <div className="row text-white">
                     <div className="col-md-6 mt-5">
                         <h1>{fakeData[id-1].spotName}</h1>
@@ -37,11 +31,11 @@ const DestinationInfo = () => {
                             <div className="row">
                                 <div className="col-md-6">
                                     <label className="text-secondary" >From</label>
-                                    <input className="form-control bg-light" type="date" id="example-date-input"/>
+                                    <input className="form-control bg-light" type="date" id="example-date-input" required/>
                                 </div>
                                 <div className="col-md-6">
                                     <label className="text-secondary bg-light" >to</label>
-                                    <input className="form-control bg-light" type="date" id="example-date-input"/>
+                                    <input className="form-control bg-light" type="date" id="example-date-input" required/>
                                 </div>
                             </div>
                             <input type="submit" className="bookingButton w-100 p-2 mt-3" value="Booking"/>

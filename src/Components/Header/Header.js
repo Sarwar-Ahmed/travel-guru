@@ -1,8 +1,19 @@
-import React from 'react';
-import { Link } from 'react-router-dom';
+import React, { useContext } from 'react';
+import { Link, useHistory } from 'react-router-dom';
+import { UserContext } from '../../App';
 import './Header.css';
 
 const Header = (props) => {
+    const history = useHistory();
+
+    const [loggedInUser, setLoggedInUser] = useContext(UserContext);
+
+    const toLogin = () =>{
+        history.push(`/login`);
+    }
+    const toLogOut = () =>{
+
+    }
     return (
         <nav className="navbar navbar-expand-lg navbar-dark">
             <img src="https://iili.io/2nXeCg.png" alt="" className="navbar-brand" />
@@ -16,18 +27,25 @@ const Header = (props) => {
                 </form>
                 <ul className="navbar-nav mr-auto mt-2 mt-lg-0">
                     <li className="nav-item active">
-                        <Link className="nav-link" to="#">News <span className="sr-only">(current)</span></Link>
+                        <Link className="nav-link" to="/">News <span className="sr-only">(current)</span></Link>
                     </li>
                     <li className="nav-item">
-                        <Link className="nav-link" to="#">Destination</Link>
+                        <Link className="nav-link" to="/">Destination</Link>
                     </li>
                     <li className="nav-item">
-                        <Link className="nav-link" to="#">Blog</Link>
+                        <Link className="nav-link" to="/">Blog</Link>
                     </li>
                     <li className="nav-item">
-                        <Link className="nav-link" to="#">Contact</Link>
+                        <Link className="nav-link" to="/">Contact</Link>
                     </li>
-                    <button className="loginBtn" >Login</button>
+                    {
+                        loggedInUser.isSignedIn
+                        ?<li className="nav-item">
+                            <Link className="nav-link text-warning" to="/">{loggedInUser.name}</Link>
+                        </li>
+                        :<button onClick={toLogin} className="loginBtn" >Login</button>
+                    }
+                    {loggedInUser.isSignedIn && <button onClick={toLogOut} className="loginBtn" >Logout</button>}
                 </ul>
 
             </div>
