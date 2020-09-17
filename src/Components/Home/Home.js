@@ -12,15 +12,13 @@ const Home = () => {
         setNavCollapsed(!navCollapsed);
     }
 
-    const handleDestinationInfo = (spotName, details) =>{
-        console.log(spotName);
-    }
+    
     return (
         <div className="container-fluid">
             <div className="container">
                 <Header handleNavCollapsed={handleNavCollapsed} navCollapsed={navCollapsed}/>
                 <div>
-                    <SpotSlider handleDestinationInfo={handleDestinationInfo}/>
+                    <SpotSlider />
                 </div>
 
             </div>

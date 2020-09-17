@@ -1,25 +1,51 @@
 import React, { useState } from 'react';
+import { useHistory, useParams } from 'react-router-dom';
 import fakeData from '../../fakeData/fakeData';
 import Header from '../Header/Header';
 
 
 const DestinationInfo = () => {
     const [navCollapsed, setNavCollapsed] = useState(true);
+    const {id} = useParams();
+    const history = useHistory();
+
     const handleNavCollapsed = () =>{
         setNavCollapsed(!navCollapsed);
+    }
+    const handleBooking = () => {
+        history.push(`/login`);
     }
     return (
         <div className="container-fluid">
             <div className="container">
                 <Header handleNavCollapsed={handleNavCollapsed} navCollapsed={navCollapsed}/>
                 <div className="row text-white">
-                    <div className="col-md-6">
-                        {
-                            fakeData.find()
-                        }
+                    <div className="col-md-6 mt-5">
+                        <h1>{fakeData[id-1].spotName}</h1>
+                        <p className="mt-3">{fakeData[id-1].details}</p>
                     </div>
-                    <div className="col-md-6">
-                        <h1>Tour Date</h1>
+                    <div className="col-md-6 mt-5 pl-5">
+                        <form onSubmit={handleBooking} className="bg-white w-75 rounded p-4">
+                            <div className="form-group">
+                                <label className="text-secondary">Origin</label>
+                                <input type="text" className="form-control font-weight-bold bg-light" id="formGroupExampleInput" placeholder="Select Your Origin"/>
+                            </div>
+                            <div className="form-group">
+                                <label className="text-secondary" >Destination</label>
+                                <input type="text" className="form-control font-weight-bold bg-light" id="formGroupExampleInput2" placeholder={fakeData[id-1].spotName}/>
+                            </div>
+                            <div className="row">
+                                <div className="col-md-6">
+                                    <label className="text-secondary" >From</label>
+                                    <input className="form-control bg-light" type="date" id="example-date-input"/>
+                                </div>
+                                <div className="col-md-6">
+                                    <label className="text-secondary bg-light" >to</label>
+                                    <input className="form-control bg-light" type="date" id="example-date-input"/>
+                                </div>
+                            </div>
+                            <input type="submit" className="bookingButton w-100 p-2 mt-3" value="Booking"/>
+                        </form>
                     </div>
                 </div>
 

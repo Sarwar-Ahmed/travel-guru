@@ -14,19 +14,18 @@ const SpotSlider = (props) => {
     return (
         <div className="card-deck">
             {
-                fakeData.map(spot => {
-                    console.log(spot)
-                    return <div className="customCard bg-none">
+                fakeData.map(spot =>
+                    <div className="customCard bg-none" key={spot.id}>
                         <img className="card-img-top" src={spot.img} />
                         <div className="card-body ">
                             <h3 className="card-title">{spot.spotName}</h3>
                             <p className="card-text">{spot.highlight} </p>
                         </div>
                         <div className="card-footer">
-                            <button className="bookingButton" onClick={() => handleDestinationInfo(spot.id)}>Booking</button>
+                            <button className="bookingButton p-1" onClick={() => handleDestinationInfo(spot.id)}>Booking</button>
                         </div>
                     </div>
-                })
+                )
             }
         </div>        
     );
