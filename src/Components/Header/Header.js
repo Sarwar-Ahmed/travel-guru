@@ -12,7 +12,7 @@ const Header = (props) => {
         history.push(`/login`);
     }
     const toLogOut = () =>{
-
+        setLoggedInUser({});
     }
     return (
         <nav className="navbar navbar-expand-lg navbar-dark">
@@ -41,7 +41,7 @@ const Header = (props) => {
                     {
                         loggedInUser.isSignedIn
                         ?<li className="nav-item">
-                            <Link className="nav-link text-warning" to="/">{loggedInUser.name}</Link>
+                            <Link className="nav-link text-warning" to="/">{loggedInUser.email}</Link>
                         </li>
                         :<button onClick={toLogin} className="loginBtn" >Login</button>
                     }
