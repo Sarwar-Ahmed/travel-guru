@@ -41,7 +41,7 @@ const Header = (props) => {
                     {
                         loggedInUser.isSignedIn
                         ?<li className="nav-item">
-                            <Link className="nav-link text-warning" to="/">{loggedInUser.email}</Link>
+                            <Link className="nav-link text-warning" to="/">{loggedInUser.firstName}</Link>
                         </li>
                         :<button onClick={toLogin} className="loginBtn" >Login</button>
                     }

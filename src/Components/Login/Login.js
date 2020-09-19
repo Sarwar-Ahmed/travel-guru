@@ -7,24 +7,25 @@ import { UserContext } from '../../App';
 import { useHistory, useLocation } from 'react-router-dom';
 import { Link } from '@material-ui/core';
 
-
+if(firebase.apps.length === 0){
+  firebase.initializeApp(firebaseConfig);
+}
 
 const Login = () => {
     const [newUser, setNewUser] = useState(false);
     const [ loggedInUser, setLoggedInUser] = useContext(UserContext);
     const [user, setUser] = useState({
         isSignedIn: false,
-        name: '',
+        firstName: '',
+        lastName: '',
         email: '',
         password: '',
         confirmPassword: '',
         error:'',
-        success:''
+        success: false
     });
 
-    if(firebase.apps.length === 0){
-        firebase.initializeApp(firebaseConfig);
-    }
+    
     const history = useHistory();
     const location = useLocation();
     let { from } = location.state || { from: { pathname: "/"}};
@@ -38,7 +39,7 @@ const Login = () => {
 
             const signedInUser = {
                 isSignedIn: true,
-                name: displayName,
+                firstName: displayName,
                 email: email,
                 success: true
             }
@@ -56,11 +57,14 @@ const Login = () => {
         var fbProvider = new firebase.auth.FacebookAuthProvider();
         firebase.auth().signInWithPopup(fbProvider)
         .then(res => {
-            var token = res.credential.accessToken;
-            var user = res.user;
-            user.success = true;
-            
-            handleResponse(user, true);
+            const {displayName} = res.user;
+
+            const signedInUser = {
+                isSignedIn: true,
+                firstName: displayName,
+                success: true
+            }
+            handleResponse(signedInUser, true);
           })
           .catch(error => {
             var errorCode = error.code;
@@ -76,7 +80,7 @@ const Login = () => {
         if(e.target.name === 'email'){
           isFieldValid = /\S+@\S+\.\S+/.test(e.target.value);
         }
-        if(e.target.name === 'password'){
+        if(e.target.name === 'password' === e.target.value === 'confirmPassword'){
           const isPasswordValid = e.target.value.length >= 6;
           const passwordHasNumber = /\d{1}/.test(e.target.value);
           isFieldValid = isPasswordValid && passwordHasNumber;
@@ -85,25 +89,25 @@ const Login = () => {
           const newUserInfo = {...user};
           newUserInfo[e.target.name] = e.target.value;
           setUser(newUserInfo);
-          console.log(newUserInfo);
+          // console.log(newUserInfo);
         }
     }
     
     // Handle submit function 
     const handleSubmit = (e) => {
         if(newUser && user.email && user.password){
-            firebase.auth().createUserWithEmailAndPassword(user.name, user.email, user.password)
+            firebase.auth().createUserWithEmailAndPassword(user.email, user.password)
                 .then(res => {
                     const newUserInfo = res.user;
                     newUserInfo.error = '';
                     newUserInfo.success = true
-                    updateUserName(user.name);
+                    updateUserName(user.firstName);
                     handleResponse(newUserInfo, true);
                     
                 })
                 .catch(error => {
                     // Handle Errors here.
-                    const newUserInfo = {};
+                    const newUserInfo = {...user};
                     newUserInfo.error = error.message;
                     newUserInfo.success = false;
                     handleResponse(newUserInfo, false);
@@ -115,14 +119,14 @@ const Login = () => {
         if(!newUser && user.email && user.password){
             firebase.auth().signInWithEmailAndPassword(user.email, user.password)
             .then(res => {
-                const newUserInfo = res.user;
+                const newUserInfo = {...user};
                 newUserInfo.error = '';
                 newUserInfo.success = true;
                 handleResponse(newUserInfo, true);
             })
             .catch(error => {
                 // Handle Errors here.
-                const newUserInfo = {};
+                const newUserInfo = {...user};
                 newUserInfo.error = error.message;
                 newUserInfo.success = false;
                 handleResponse(newUserInfo, false);
@@ -161,15 +165,15 @@ const Login = () => {
                         <form onSubmit={handleSubmit} className="w-md-50 bg-white rounded p-5">
                             {newUser ?<h2 className="mb-3">Create an account</h2> : <h2 className="mb-3">Login</h2>}
 
-                            {newUser && <input type="text" name="name" onBlur={handleBlur} className="form-control font-weight-bold bg-light" id="formGroupExampleInput" placeholder="First Name" required/>}
+                            {newUser && <input type="text" name="firstName" onBlur={handleBlur} className="form-control font-weight-bold bg-light" id="formGroupExampleInput" placeholder="First Name" required/>}
 
-                            {newUser && <input type="text" name="name" onBlur={handleBlur} className="form-control font-weight-bold bg-light" id="formGroupExampleInput" placeholder="Last Name" required/>}
+                            {newUser && <input type="text" name="lastName" onBlur={handleBlur} className="form-control font-weight-bold bg-light" id="formGroupExampleInput" placeholder="Last Name" required/>}
 
                             <input type="text" name="email" onBlur={handleBlur} className="form-control font-weight-bold bg-light" id="formGroupExampleInput" placeholder="Username or Email" required/>
 
                             <input type="password" name="password" onBlur={handleBlur} className="form-control font-weight-bold bg-light" id="formGroupExampleInput" placeholder="Password" required/>
 
-                            {newUser && <input type="password" name="password" onBlur={handleBlur} className="form-control font-weight-bold bg-light" id="formGroupExampleInput" placeholder="Confirm Password" required/>}
+                            {newUser && <input type="password" name="confirmPassword" onBlur={handleBlur} className="form-control font-weight-bold bg-light" id="formGroupExampleInput" placeholder="Confirm Password" required/>}
 
                             {!newUser && <div className="d-flex">
                                 <input type="checkbox" className="mt-1"/><label htmlFor="remember" className="mr-auto font-wight-bold">Remember Me</label>
