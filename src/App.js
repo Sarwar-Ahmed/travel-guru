@@ -12,6 +12,7 @@ import Login from './Components/Login/Login';
 import Accommodation from './Components/Accommodation/Accommodation';
 import Header from './Components/Header/Header';
 import PrivateRoute from './Components/PrivateRoute/PrivateRoute';
+import CustomSlider from './Components/CustomSlider/CustomSlider';
 
 export const UserContext = createContext();
 function App() {
@@ -31,6 +32,9 @@ function App() {
             <Switch>
               <Route path="/home">
                 <Home />
+              </Route>
+              <Route path="/customSlider">
+                <CustomSlider />
               </Route>
               <Route path="/destinationInfo/:id">
                 <DestinationInfo />
