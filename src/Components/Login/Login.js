@@ -201,7 +201,7 @@ const Login = () => {
 
                             <p style={{color: 'red'}}>{user.error}</p>
 
-                        <h2 className="text-center text-white">Or</h2>
+                        <h4 className="text-center text-white">Or</h4>
                         <hr className="w-md-50 bg-white"/>
                         
                         <div className="w-md-50 rounded p-2">

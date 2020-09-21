@@ -22,8 +22,8 @@ const fakeData = [
         "spotName": "SUNDARBANS",
         "highlight": "The Sundarbans is a mangrove area in the delta formed by the confluence of the Ganges, Brahmaputra and Meghna Rivers....",
         "details": "The Sundarbans is a mangrove area in the delta formed by the confluence of the Ganges, Brahmaputra and Meghna Rivers in the Bay of Bengal. It spans from the Hooghly River in India's state of West Bengal to the Baleswar River in Bangladesh.",
-        "latitude": 21.9497,
-        "longitude": 89.1833,
+        "latitude": 21.943992,
+        "longitude": 89.172919,
         "img": "https://iili.io/2nALBt.png"
     }
 ]

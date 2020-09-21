@@ -15,12 +15,12 @@ export class GoogleMap extends Component {
                 google={this.props.google}
                 zoom={14}
                 style={mapStyles}
-                // initialCenter={
-                // {
-                //     lat: {this.props.latitude},
-                //     lng: {this.props.longitude}
-                // }
-                // }
+                initialCenter={
+                {
+                    lat: this.props.latitude,
+                    lng: this.props.longitude
+                }
+                }
             />
         );
     }
