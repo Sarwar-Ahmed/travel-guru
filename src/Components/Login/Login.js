@@ -7,9 +7,7 @@ import { UserContext } from '../../App';
 import { useHistory, useLocation } from 'react-router-dom';
 import { Link } from '@material-ui/core';
 
-if(firebase.apps.length === 0){
-  firebase.initializeApp(firebaseConfig);
-}
+
 
 const Login = () => {
     const [newUser, setNewUser] = useState(false);
@@ -22,7 +20,7 @@ const Login = () => {
         password: '',
         confirmPassword: '',
         error:'',
-        success: false
+        success: ''
     });
 
     
@@ -30,7 +28,12 @@ const Login = () => {
     const location = useLocation();
     let { from } = location.state || { from: { pathname: "/"}};
 
-    // Google Signin 
+    if(firebase.apps.length === 0){
+      firebase.initializeApp(firebaseConfig);
+    }
+
+
+    // Google Sign in 
     const googleSignIn = () => {
         const googleProvider = new firebase.auth.GoogleAuthProvider();
         firebase.auth().signInWithPopup(googleProvider)
@@ -52,27 +55,28 @@ const Login = () => {
 
     }
 
-    // Facebook signin 
+    // Facebook sign in 
     const fbSignIn = () => {
-        var fbProvider = new firebase.auth.FacebookAuthProvider();
-        firebase.auth().signInWithPopup(fbProvider)
-        .then(res => {
-            const {displayName} = res.user;
-
-            const signedInUser = {
-                isSignedIn: true,
-                firstName: displayName,
-                success: true
-            }
-            handleResponse(signedInUser, true);
-          })
-          .catch(error => {
-            var errorCode = error.code;
-            var errorMessage = error.message;
-            console.log(errorCode, errorMessage)
-          });
+      var fbProvider = new firebase.auth.FacebookAuthProvider();
+      firebase.auth().signInWithPopup(fbProvider)
+      .then(res => {
+          const {displayName, email} = res.user;
+          const signedInUser = {
+              isSignedIn: true,
+              firstName: displayName,
+              email: email,
+              success: true
+          }
+          handleResponse(signedInUser, true);
+        })
+        .catch(error => {
+          console.log(error);
+          console.log(error.message);
+        });
 
     }
+
+    
 
     // Handle Blur function 
     const handleBlur = (e) => {
@@ -89,7 +93,6 @@ const Login = () => {
           const newUserInfo = {...user};
           newUserInfo[e.target.name] = e.target.value;
           setUser(newUserInfo);
-          // console.log(newUserInfo);
         }
     }
     
@@ -98,16 +101,17 @@ const Login = () => {
         if(newUser && user.email && user.password){
             firebase.auth().createUserWithEmailAndPassword(user.email, user.password)
                 .then(res => {
-                    const newUserInfo = res.user;
-                    newUserInfo.error = '';
-                    newUserInfo.success = true
-                    updateUserName(user.firstName);
-                    handleResponse(newUserInfo, true);
-                    
+                  const newUserInfo = {...user};
+                  newUserInfo.isSignedIn = true;
+                  newUserInfo.error = '';
+                  newUserInfo.success = true;
+                  updateUserName(user.firstName);
+                  handleResponse(newUserInfo, true);
+                  
                 })
                 .catch(error => {
                     // Handle Errors here.
-                    const newUserInfo = {...user};
+                    const newUserInfo = {};
                     newUserInfo.error = error.message;
                     newUserInfo.success = false;
                     handleResponse(newUserInfo, false);
@@ -119,14 +123,15 @@ const Login = () => {
         if(!newUser && user.email && user.password){
             firebase.auth().signInWithEmailAndPassword(user.email, user.password)
             .then(res => {
-                const newUserInfo = {...user};
-                newUserInfo.error = '';
-                newUserInfo.success = true;
-                handleResponse(newUserInfo, true);
+              const newUserInfo = {...user};
+              newUserInfo.isSignedIn = true;
+              newUserInfo.error = '';
+              newUserInfo.success = true;
+              handleResponse(newUserInfo, true);
             })
             .catch(error => {
                 // Handle Errors here.
-                const newUserInfo = {...user};
+                const newUserInfo = {};
                 newUserInfo.error = error.message;
                 newUserInfo.success = false;
                 handleResponse(newUserInfo, false);
@@ -143,7 +148,7 @@ const Login = () => {
         user.updateProfile({
           displayName: name
         }).then(function() {
-          console.log('user name updated successfully')
+          console.log('user name updated successfully');
         }).catch(function(error) {
           console.log(error);
         });
@@ -195,7 +200,6 @@ const Login = () => {
                             </div>}
 
                             <p style={{color: 'red'}}>{user.error}</p>
-                            { user.success && <p style={{color: 'green'}}>User {newUser ?'Created' : 'Logged In'} Succesfully</p>}
 
                         <h2 className="text-center text-white">Or</h2>
                         <hr className="w-md-50 bg-white"/>

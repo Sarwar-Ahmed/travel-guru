@@ -7,18 +7,20 @@ const mapStyles = {
 };
 
 export class GoogleMap extends Component {
+
+    
     render() {
         return (
             <Map
                 google={this.props.google}
                 zoom={14}
                 style={mapStyles}
-                initialCenter={
-                {
-                    lat: 23.8103,
-                    lng: 90.4125
-                }
-                }
+                // initialCenter={
+                // {
+                //     lat: {this.props.latitude},
+                //     lng: {this.props.longitude}
+                // }
+                // }
             />
         );
     }

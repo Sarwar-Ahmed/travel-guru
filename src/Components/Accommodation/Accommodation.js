@@ -1,14 +1,19 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import './accommodation.css'
 import bookingInfo from '../../fakeData/bookingInfo';
 import GoogleMap from '../GoogleMap/GoogleMap';
+import { UserContext } from '../../App';
+import { useParams } from 'react-router-dom';
+import fakeData from '../../fakeData/fakeData';
 
 const Accommodation = () => {
+    const {id} = useParams();
+
     return (
         <div>
             <hr className="bg-white"/>
             <p className="text-white">252 stays Apr 13-17 3 guests</p>
-            <h2 className="text-white">Stay in</h2>
+            <h2 className="text-white">Stay in {fakeData[id].spotName}</h2>
             <div className="row">
                 <div className="col-md-6 bg-white">
                 {bookingInfo.map(hotel =>
@@ -30,7 +35,7 @@ const Accommodation = () => {
                 )}
                 </div>
                 <div className="col-md-6 p-5">
-                    <GoogleMap />
+                    <GoogleMap latitude={fakeData[id].latitude} longitude={fakeData[id].longitude}/>
                 </div>
             </div>
         </div>

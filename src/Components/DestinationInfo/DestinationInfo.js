@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { useHistory, useParams } from 'react-router-dom';
 import fakeData from '../../fakeData/fakeData';
 
@@ -8,7 +8,7 @@ const DestinationInfo = () => {
     const history = useHistory();
 
     const handleBooking = () => {
-        history.push(`/accommodation`);
+        history.push(`/accommodation/${id-1}`);
     }
     return (
         <div className="container-fluid">

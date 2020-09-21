@@ -11,9 +11,7 @@ const Header = (props) => {
     const toLogin = () =>{
         history.push(`/login`);
     }
-    const toLogOut = () =>{
-        setLoggedInUser({});
-    }
+
     return (
         <nav className="navbar navbar-expand-lg navbar-dark">
             <img src="https://iili.io/2nXeCg.png" alt="" className="navbar-brand" />
@@ -41,11 +39,11 @@ const Header = (props) => {
                     {
                         loggedInUser.isSignedIn
                         ?<li className="nav-item">
-                            <Link className="nav-link text-warning" to="/">{loggedInUser.firstName}</Link>
+                            <Link className="nav-link text-warning" to="/">{loggedInUser.firstName || loggedInUser.email}</Link>
                         </li>
                         :<button onClick={toLogin} className="loginBtn" >Login</button>
                     }
-                    {loggedInUser.isSignedIn && <button onClick={toLogOut} className="loginBtn" >Logout</button>}
+                    {loggedInUser.isSignedIn && <button onClick={() => setLoggedInUser({})} className="loginBtn" >Logout</button>}
                 </ul>
 
             </div>
