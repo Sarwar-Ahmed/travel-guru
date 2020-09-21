@@ -175,8 +175,10 @@ const Login = () => {
                             {newUser && <input type="text" name="lastName" onBlur={handleBlur} className="form-control font-weight-bold bg-light" id="formGroupExampleInput" placeholder="Last Name" required/>}
 
                             <input type="text" name="email" onBlur={handleBlur} className="form-control font-weight-bold bg-light" id="formGroupExampleInput" placeholder="Username or Email" required/>
+                            <p className="text-muted">*give proper email address</p>
 
                             <input type="password" name="password" onBlur={handleBlur} className="form-control font-weight-bold bg-light" id="formGroupExampleInput" placeholder="Password" required/>
+                            <p className="text-muted">*Password should have at least 6 letter and 1 number</p>
 
                             {newUser && <input type="password" name="confirmPassword" onBlur={handleBlur} className="form-control font-weight-bold bg-light" id="formGroupExampleInput" placeholder="Confirm Password" required/>}
 

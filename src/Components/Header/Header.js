@@ -24,7 +24,7 @@ const Header = (props) => {
                     <input className="form-control mr-sm-2 bg-dark text-white" type="search" placeholder="Search your destination" />
                 </form>
                 <ul className="navbar-nav mr-auto mt-2 mt-lg-0">
-                    <li className="nav-item active">
+                    <li className="nav-item">
                         <Link className="nav-link" to="/">News <span className="sr-only">(current)</span></Link>
                     </li>
                     <li className="nav-item">
